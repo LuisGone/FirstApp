@@ -10,6 +10,9 @@ namespace SkillFactory
     {
         static void Main(string[] args)
         {
+            string MyName;
+            MyName = "Jane";
+            Console.WriteLine(MyName);
         }
     }
 }
