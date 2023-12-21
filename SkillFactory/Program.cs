@@ -10,9 +10,13 @@ namespace SkillFactory
     {
         static void Main(string[] args)
         {
-            string MyName;
-            MyName = "Jane";
-            Console.WriteLine(MyName);
-        }
+            Console.Write("Введите ваше имя: ");
+            var name=Console.ReadLine();
+            Console.Write("Enter your age: ");
+          var age=Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter your birthday:");
+            var birthday=Console.ReadLine();
+            Console.WriteLine("Yor birthday is {0}",birthday);
+        } 
     }
 }
