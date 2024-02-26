@@ -10,32 +10,36 @@ namespace SkillFactory
     {
         static void Main(string[] args)
         {
-			Console.WriteLine("Напишите свой любимый цвет на английском с маленькой буквы");
+            Console.WriteLine("Напишите что-то");
+            var str = Console.ReadLine();
 
-			var color = Console.ReadLine();
+            Console.WriteLine("Укажите глубину эха");
+            var deep = int.Parse(Console.ReadLine());
 
-			if (color == "red")
-			{
-				Console.BackgroundColor = ConsoleColor.Red;
-				Console.ForegroundColor = ConsoleColor.Black;
+            Echo(str, deep);
 
-				Console.WriteLine("Your color is red!");
-			}
+            Console.ReadKey();
+        }
+        static void Echo(string saidworld, int deep)
+        {
+         
+            var modif = saidworld;
 
-			else if (color == "green")
-			{
-				Console.BackgroundColor = ConsoleColor.Green;
-				Console.ForegroundColor = ConsoleColor.Black;
+            if (modif.Length>2)
+            {
+               modif=modif.Remove(0,2);
+            }
 
-				Console.WriteLine("Your color is green!");
-			}
-			else
-			{
-				Console.BackgroundColor = ConsoleColor.Cyan;
-				Console.ForegroundColor = ConsoleColor.Black;
+            var d = modif.Length;
 
-				Console.WriteLine("Your color is cyan!");
-			}
-		} 
+            Console.WriteLine("..." + modif);
+            
+            if (deep > 1)
+            {
+                Echo(modif, deep - 1);
+            }
+        }
+
     }
 }
+
