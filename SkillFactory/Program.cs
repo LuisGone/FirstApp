@@ -10,36 +10,136 @@ namespace SkillFactory
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Напишите что-то");
-            var str = Console.ReadLine();
-
-            Console.WriteLine("Укажите глубину эха");
-            var deep = int.Parse(Console.ReadLine());
-
-            Echo(str, deep);
-
-            Console.ReadKey();
+            EnterUser();
+            ShowData();
         }
-        static void Echo(string saidworld, int deep)
+        static (string Name, string LastName, int Age, int NumPet, int NumFavColor,bool HavePet, string[] PetName, string[] favColor) User;
+
+        static (string Name, string LastName, int Age, int NumPet, int NumFavColor, bool HavePet, string[] PetName, string[] favColor) EnterUser()
         {
-         
-            var modif = saidworld;
+            Console.WriteLine("Введите Имя ");
 
-            if (modif.Length>2)
+            User.Name = Console.ReadLine();
+
+            Console.WriteLine("Введите Фамилию ");
+
+            User.LastName = Console.ReadLine();
+
+            string Age; 
+            int intage;
+
+            do
             {
-               modif=modif.Remove(0,2);
+                Console.WriteLine("Введите возраст цифрами");
+                Age = Console.ReadLine();
+
+            } while (CheckNum(Age, out intage));
+
+            User.Age = intage;
+
+            Console.Write("У вас есть домашний питомец?(Да/Нет): ");
+            var PetResult = Console.ReadLine();
+
+            while (PetResult != "Да" && PetResult != "Нет")
+
+            {
+                Console.WriteLine("Неправильно, введите Да или Нет");
+                PetResult = Console.ReadLine();
             }
-
-            var d = modif.Length;
-
-            Console.WriteLine("..." + modif);
-            
-            if (deep > 1)
+            if (PetResult == "Да")
             {
-                Echo(modif, deep - 1);
+                User.HavePet = true;
+                string pet;
+                int intpet;
+                do
+                {
+                    Console.WriteLine("Введите количество питомцев: ");
+                    pet = Console.ReadLine();
+                } while (CheckNum(pet, out intpet));
+
+                User.NumPet = intpet;
+                string[] PetName = new string[intpet];
+
+
+                Console.WriteLine($"Введите имя питомца: ");
+                for (int i = 0; i < intpet; i++)
+                {
+
+                    PetName[i] = Console.ReadLine();
+
+                }
+                User.PetName = PetName;
+            }
+            else
+            {
+                User.NumPet = 0;
+            }
+           
+            string colors;
+            int intcolors;
+            do
+            {
+                Console.WriteLine("Напишите количество любимых цветов цифрами");
+                colors = Console.ReadLine();
+            } 
+            while (CheckNum(colors, out intcolors));
+            User.NumFavColor = intcolors;
+            User.favColor = new string[User.NumFavColor];
+
+            for (int i = 0; i < User.NumFavColor; i++)
+            {
+                Console.WriteLine($"Введите любимый цвет {i + 1}: ");
+                User.favColor[i] = Console.ReadLine();
+            }
+            return User;
+        }
+
+
+        static bool CheckNum(string number, out int corrnumber)
+        {
+            if (int.TryParse(number, out int intnum))
+            {
+                if (intnum > 0)
+                {
+                    corrnumber = intnum;
+                    return false;
+                }
+            }
+            {
+                corrnumber = 0;
+                return true;
             }
         }
+        static (string Name, string LastName, int Age, int NumPet, int NumFavColor, bool HavePet, string[] PetName, string[] favColor) ShowData()
+        {
+            Console.WriteLine($"Имя: {User.Name}");
+            Console.WriteLine($"Фамилия: {User.LastName}");
+            Console.WriteLine($"Возраст: {User.Age}"); 
+            if (User.HavePet)
+            {
+                Console.WriteLine($"Количество питомцев: {User.NumPet}");
+                Console.WriteLine("Клички питомцев:");
+                foreach (string pet in User.PetName)
+                {
+                    Console.WriteLine(pet);
+                }
+            }
+            else
+            {
+                Console.WriteLine("У пользователя нет питомцев");
+            }
+            Console.WriteLine($"Количество любимых цветов: {User.NumFavColor}");
+            Console.WriteLine("Любимые цвета:");
+            foreach (string col in User.favColor)
+            {
+                Console.WriteLine(col);
+            }
+            return User;
+        }
+
 
     }
 }
+    
+
 
